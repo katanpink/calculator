@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            border: 1px solid rgb(38, 38, 38);
+            border-radius: 20px;
+            background: rgb(38, 38, 38);
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 450px;
+            height: 550px;
+        }
+
+        .keys {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            padding: 10px;
+            margin: auto;
+        }
+
+        .button {
+            height: 90px;
+            padding: 5px;
+            background-color: whitesmoke;
+            border-radius: 5px;
+            border: 1px solid red;
+            background-color: transparent;
+            font-size: 2rem;
+            color: white;
+            background-image: linear-gradient(to bottom, transparent, transparent 50%, rgba(0, 0, 0, .04));
+        }
+
+        .button:hover {
+            background-color: red;
+        }
+
+        .operator {
+            color: #fff;
+            background-color: goldenrod;
+            border-radius: 5px;
+        }
+
+        .operator:hover {
+            background-color: darkgoldenrod;
+        }
+
+        .clear {
+            background-color: silver;
+            border-color: gray;
+            color: black;
+            border-radius: 10px;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+            margin-left: 125px;
+        }
+
+        .clear:hover {
+            background-color: silver;
+        }
+
+        .equal-sign {
+            background-color: darkred;
+            border-color: red;
+            color: #fff;
+        }
+
+        .equal-sign:hover {
+            background-color: red;
+        }
+
+        .screen {
+            background-color: whitesmoke;
+            justify-content: left;
+            color: black;
+            font-size: medium;
+            width: 100%;
+            height: 30%;
+            cursor: default;
+            padding: 10px;
+            padding-left: 40%;
+            margin: auto;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <table>
+            <tr>
+                <td colspan="3"><input type='text' id='result' class='screen'
+                        style="text-align: right; margin-right: 50px;"></td>
+                <td>
+                    <input type='button' value='C' onclick="clearScreen()" class="clear" />
+                </td>
+            </tr>
+        </table>
+        <div class="keys">
+            <input type="button" value="^" class="operator" onClick="display('**')" style="font-size: 20px;"></input>
+            <input type="button" value="(" class="operator" onClick="display('(')" style="font-size: 20px;"></input>
+            <input type="button" value=")" class="operator" onClick="display(')')" style="font-size: 20px;"></input>
+            <input type="button" value="del" class="operator" onClick="del()" style="font-size: 20px;"></input>
+            <input type="button" value="7" class="button" onClick="display('7')"></input>
+            <input type="button" value="8" class="button " onClick="display('8')"></input>
+            <input type="button" value="9" class="button" onClick="display('9')"></input>
+            <input type="button" value="/" class="operator" onClick="display('/')" style="font-size: 20px;"></input>
+            <input type="button" value="4" class="button" onClick="display('4')"></input>
+            <input type="button" value="5" class="button" onClick="display('5')"></input>
+            <input type="button" value="6" class="button" onClick="display('6')"></input>
+            <input type="button" value="*" class="operator" onClick="display('*')" style="font-size: 20px;"></input>
+            <input type="button" value="1" class="button" onClick="display('1')"></input>
+            <input type="button" value="2" class="button" onClick="display('2')"></input>
+            <input type="button" value="3" class="button" onClick="display('3')"></input>
+            <input type="button" value="-" class="operator" onClick="display('-')" style="font-size: 20px;"></input>
+            <input type="button" value="0" class="button" onClick="display('0')"></input>
+            <input type="button" value="." class="button" onClick="display('.')"></input>
+            <input type="button" value="=" class="button equal-sign" onClick="solve()"></input>
+            <input type="button" value="+" class="operator" onClick="display('+')" style="font-size: 20px;"></input>
+
+        </div>
+
+    </div>
+    <script>
+        function display(x) {
+            console.log('pause')
+            document.getElementById('result').value += x
+            return x
+        }
+        function solve() {
+            let pro = document.getElementById('result').value
+            let ans = eval(pro);
+            document.getElementById('result').value = ans
+            return ans
+        }
+        function clearScreen() {
+            document.getElementById('result').value = ''
+        }
+        function del() {
+            console.log('not done')
+        }
+    </script>
+</body>
+
+</html>
