@@ -16,7 +16,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             width: 450px;
-            height: 550px;
+            height: 650px;
         }
 
         .keys {
@@ -64,7 +64,8 @@
             width: 50px;
             height: 50px;
             margin-bottom: 10px;
-            margin-left: 125px;
+            margin-left: 75px;
+            margin-right: 20px
         }
 
         .clear:hover {
@@ -91,9 +92,13 @@
             height: 30%;
             cursor: default;
             padding: 10px;
-            padding-left: 40%;
+            padding-left: 30%;
             margin: auto;
             margin-bottom: 10px;
+            margin-left: 20px;
+        }
+        #hid{
+            visibility: hidden;
         }
     </style>
 </head>
@@ -104,65 +109,99 @@
         <table>
             <tr>
                 <td colspan="3"><input type='text' id='result' class='screen'
-                        style="text-align: right; margin-right: 50px;"></td>
+                        style="text-align: right; width: 200%;"></td>
                 <td>
-                    <input type='button' value='C' onclick="clearScreen()" class="clear" />
+                    
+                <td colspan="3" id="hid"><input type='text' id='calc' class='screen'
+                        style="text-align: right;"></td>
+                <td>
+                    <input type='button' value='C' onclick="clearScreen()" class="clear"/>
                 </td>
             </tr>
         </table>
         <div class="keys">
-            <input type="button" value="x^#" class="operator" onClick="display('**')" style="font-size: 20px;"></input>
-            <input type="button" value="(" class="operator" onClick="displayS('(')" style="font-size: 20px;"></input>
-            <input type="button" value=")" class="operator" onClick="display(')')" style="font-size: 20px;"></input>
+            <input type="button" value="x^#" class="operator" onClick="display('**')" q></input>
+            <input type="button" value="√" class="operator" onClick="display('Math.sqrt(')" style="font-size: 20px;"></input>
+            <input type="button" value="||" class="operator" onClick="display('Math.abs(')" style="font-size: 20px;"></input>
             <input type="button" value="del" class="operator" onClick="del()" style="font-size: 20px;"></input>
+            <input type="button" value="(" class="button" onClick="displayS('(')"></input>
+            <input type="button" value="π" class="button" onClick="display('3.14')"></input>
+            <input type="button" value=")" class="button" onClick="display(')')"></input>
+
+            <input type="button" value="/" class="operator" onClick="display('/')" style="font-size: 20px;"></input>
             <input type="button" value="7" class="button" onClick="display('7')"></input>
             <input type="button" value="8" class="button " onClick="display('8')"></input>
             <input type="button" value="9" class="button" onClick="display('9')"></input>
-            <input type="button" value="/" class="operator" onClick="display('/')" style="font-size: 20px;"></input>
+
+            <input type="button" value="*" class="operator" onClick="display('*')" style="font-size: 20px;"></input>
             <input type="button" value="4" class="button" onClick="display('4')"></input>
             <input type="button" value="5" class="button" onClick="display('5')"></input>
             <input type="button" value="6" class="button" onClick="display('6')"></input>
-            <input type="button" value="*" class="operator" onClick="display('*')" style="font-size: 20px;"></input>
+
+            <input type="button" value="-" class="operator" onClick="display('-')" style="font-size: 20px;"></input>
             <input type="button" value="1" class="button" onClick="display('1')"></input>
             <input type="button" value="2" class="button" onClick="display('2')"></input>
             <input type="button" value="3" class="button" onClick="display('3')"></input>
-            <input type="button" value="-" class="operator" onClick="display('-')" style="font-size: 20px;"></input>
-            <input type="button" value="0" class="button" onClick="display('0')"></input>
-            <input type="button" value="." class="button" onClick="display('.')"></input>
-            <input type="button" value="=" class="button equal-sign" onClick="solve()"></input>
+
             <input type="button" value="+" class="operator" onClick="display('+')" style="font-size: 20px;"></input>
+            <input type="button" value="ans" class="operator" onClick="displayA()" style="font-size: 20px;"></input>
+            <input type="button" value="0" class="button" onClick="display('0')"></input>
+            <input type="button" value="." class="operator" onClick="display('.')" style="font-size: 40px;"></input>
+            <input type="button" value="=" class="button equal-sign" onClick="solve()"></input>
 
         </div>
 
     </div>
     <script>
         var i = 0
+        var ans = null
         function display(x) {
-            document.getElementById('result').value += x
+            if (x == 'Math.sqrt('){
+                document.getElementById('calc').value += x
+                document.getElementById('result').value += '√'
+            }else if (x == 'Math.abs(') {
+                document.getElementById('calc').value += x
+                document.getElementById('result').value += '|'
+            } else{
+                document.getElementById('calc').value += x
+                document.getElementById('result').value += x
+            }
             i = 1
             return x
         }
+        function displayA() {
+            document.getElementById('calc').value += ans
+            document.getElementById('result').value += ans
+            i = 1
+            return ans
+        }
         function displayS(x){
             if (i == 0) {
+                document.getElementById('calc').value += x
                 document.getElementById('result').value += x
                 i = 1
             }else if(i == 1){
-                 document.getElementById('result').value += '*'+x
+                 document.getElementById('calc').value += '*'+x
+                 document.getElementById('result').value += x
                  i = 0
              }
              return x
         }
         function solve() {
-            let pro = document.getElementById('result').value
-            let ans = eval(pro);
+            let pro = document.getElementById('calc').value
+            ans = eval(pro);
             document.getElementById('result').value = ans
             return ans
         }
         function clearScreen() {
+            document.getElementById('calc').value = ''
             document.getElementById('result').value = ''
+            i = 0
         }
         function del() {
+            document.getElementById('calc').value = document.getElementById('calc').value.slice(0, -1)
             document.getElementById('result').value = document.getElementById('result').value.slice(0, -1)
+            
         }
     </script>
 </body>
